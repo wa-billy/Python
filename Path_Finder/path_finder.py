@@ -4,7 +4,7 @@ import queue
 import time
 
 maze = [
-    ["#", "O", "#", "#", "#", "#", "#", "#", "#"],
+    ["#", " ", "#", "#", "#", "#", "#", "O", "#"],
     ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
     ["#", " ", "#", "#", " ", "#", "#", " ", "#"],
     ["#", " ", "#", " ", " ", " ", "#", " ", "#"],
@@ -51,6 +51,7 @@ def find_path(maze, stdscr):
 
         stdscr.clear()
         print_maze(maze, stdscr, path)
+        time.sleep(0.2)
         stdscr.refresh()
 
         if maze[row][col] == end:
@@ -62,7 +63,7 @@ def find_path(maze, stdscr):
             if neighbor in visited:
                 continue
             r, c = neighbor
-            if maze[r][c]:
+            if maze[r][c] == "#":
                 continue
 
             new_path = path + [neighbor]
@@ -86,8 +87,6 @@ def find_neighbors(maze, row, col):
 def main(stdscr):
     curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK)
     curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
-    black_white = curses.color_pair(1)
-    blue_red = curses.color_pair(2)
 
     find_path(maze, stdscr)
     stdscr.getch()
